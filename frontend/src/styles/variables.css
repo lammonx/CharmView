@@ -1,0 +1,18 @@
+:root {
+  --color-bg: #1a1a2e;
+  --color-bg-secondary: #16213e;
+  --color-primary: #667eea;
+  --color-primary-dark: #764ba2;
+  --color-text: #eee;
+  --color-text-secondary: #ccc;
+  --color-text-muted: #888;
+  --color-border: #333;
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --shadow-card: 0 4px 15px rgba(0,0,0,0.3);
+  --shadow-hover: 0 8px 25px rgba(102, 126, 234, 0.4);
+  --radius-sm: 10px;
+  --radius-md: 15px;
+  --radius-lg: 20px;
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
