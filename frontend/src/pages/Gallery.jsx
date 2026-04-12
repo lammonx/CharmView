@@ -6,6 +6,7 @@ const Gallery = () => {
 
   const tabs = [
     { key: 'beauty', label: '美女图片' },
+    { key: 'heisi', label: '黑丝图片' },
     { key: 'scenery', label: '风景图片' },
     { key: 'video', label: '随机视频' },
   ];

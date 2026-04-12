@@ -9,6 +9,12 @@ const API_CONFIG = {
       { name: '手机端', url: 'https://pic.ltywl.top/mn/pe.php' },
     ],
   },
+  heisi: {
+    title: '黑丝图片',
+    apis: [
+      { name: '自适应', url: 'https://api.suyanw.cn/api/hs.php' },
+    ],
+  },
   scenery: {
     title: '风景图片',
     apis: [
@@ -20,8 +26,22 @@ const API_CONFIG = {
   video: {
     title: '随机视频',
     apis: [
-      { name: '美女视频', url: 'https://api.vvhan.com/api/video/nvshen' },
-      { name: '风景视频', url: 'https://api.vvhan.com/api/video/fengjing' },
+      { name: 'JK系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: 'JK系列' },
+      { name: '帅哥系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '帅哥系列' },
+      { name: '白丝系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '白丝系列' },
+      { name: '女大系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '女大系列' },
+      { name: '慢摇系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '慢摇系列' },
+      { name: 'COS系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: 'COS系列' },
+      { name: '黑丝系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '黑丝系列' },
+      { name: '女高系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '女高系列' },
+      { name: '热舞系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '热舞系列' },
+      { name: '蛇姐系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '蛇姐系列' },
+      { name: '穿搭系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '穿搭系列' },
+      { name: '变装系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '变装系列' },
+      { name: '汉服系列', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '汉服系列' },
+      { name: '双倍快乐', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '双倍快乐' },
+      { name: '对脸自拍', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '对脸自拍' },
+      { name: '完美身材', url: 'https://api.suyanw.cn/api/jhsp.php', msg: '完美身材' },
     ],
   },
 };
@@ -40,24 +60,40 @@ const OnlineGallery = ({ type }) => {
   const [gridSize, setGridSize] = useState(type === 'video' ? 1 : 5);
   const [viewMode, setViewMode] = useState('grid');
   const [modalImage, setModalImage] = useState(null);
+  const [videoError, setVideoError] = useState(null);
 
   const handleRefresh = useCallback(() => {
     setRefreshKey(prev => prev + 1);
+    setVideoError(null);
   }, []);
 
   const currentApi = config.apis[selectedApi];
+
+  const handleVideoError = useCallback((e) => {
+    console.error('视频加载失败:', e);
+    setVideoError('视频加载失败，请点击刷新按钮重试或切换其他来源');
+  }, []);
 
   const renderContent = () => {
     if (type === 'video') {
       return (
         <div className="video-container">
+          {videoError && (
+            <div className="video-error">
+              <p>⚠️ {videoError}</p>
+            </div>
+          )}
           <video
             key={refreshKey}
-            src={`${currentApi.url}?t=${refreshKey}`}
+            src={currentApi.msg 
+              ? `${currentApi.url}?msg=${currentApi.msg}&t=${refreshKey}`
+              : `${currentApi.url}?t=${refreshKey}`
+            }
             controls
             autoPlay
             loop
             className="video-player"
+            onError={handleVideoError}
           />
         </div>
       );
@@ -96,6 +132,7 @@ const OnlineGallery = ({ type }) => {
               onClick={() => {
                 setSelectedApi(index);
                 setRefreshKey(prev => prev + 1);
+                setVideoError(null);
               }}
             >
               {api.name}
