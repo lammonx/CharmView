@@ -20,7 +20,8 @@ const API_CONFIG = {
   video: {
     title: '随机视频',
     apis: [
-      { name: '热门视频', url: 'https://dh.lt6.ltd/xjj/video.php' },
+      { name: '美女视频', url: 'https://api.vvhan.com/api/video/nvshen' },
+      { name: '风景视频', url: 'https://api.vvhan.com/api/video/fengjing' },
     ],
   },
 };
