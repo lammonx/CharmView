@@ -17,3 +17,10 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+
+# HTTPS配置文件（服务器特定配置）
+setup-https.sh
+docker-compose.https.yml
+frontend/nginx.https.conf
+HTTPS-SETUP.md
+renew-cert.sh
