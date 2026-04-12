@@ -23,4 +23,4 @@ setup-https.sh
 docker-compose.https.yml
 frontend/nginx.https.conf
 HTTPS-SETUP.md
-renew-cert.sh
+renew-cert.shHTTPS-CONFIGURED.md

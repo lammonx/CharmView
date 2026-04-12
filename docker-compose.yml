@@ -10,6 +10,7 @@ services:
     container_name: charmview
     ports:
       - "80:80"
+      - "443:443"  # 添加HTTPS端口
     restart: unless-stopped
     # 运行时资源限制
     deploy:
@@ -27,3 +28,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 10s
+    # 挂载SSL证书
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
