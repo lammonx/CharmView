@@ -10,7 +10,8 @@
 - 图片点击放大预览
 - 视频自动播放与循环播放
 - Docker 容器化部署
-- 资源限制与健康检查
+- GitHub Pages 自动部署
+- 健康检查
 
 ## 视频源支持
 
@@ -26,7 +27,8 @@
 
 - React 18
 - Create React App
-- Docker + Nginx
+- GitHub Pages（GitHub Actions 自动部署）
+- Docker + Nginx（可选）
 
 ## 本地开发
 
@@ -36,27 +38,36 @@ npm install
 npm start
 ```
 
-## Docker 部署
+## GitHub Pages 部署（推荐）
 
-### 快速启动
+项目已配置 GitHub Actions 自动部署，推送到 `main` 分支即可自动构建并发布到 GitHub Pages。
+
+### 首次配置
+
+1. 在 GitHub 仓库启用 Pages：**Settings → Pages → Build and deployment → Source → GitHub Actions**
+2. 推送代码到 `main` 分支，自动触发构建与部署
+
+部署完成后访问: https://lammonx.github.io/CharmView/
+
+> 说明：路由采用 HashRouter，页面地址形如 `https://lammonx.github.io/CharmView/#/gallery`
+
+## Docker 部署（可选）
+
+> 已移除 `docker-compose.yml`，改用 `docker build` 直接构建镜像。
 
 ```bash
-# 构建并启动
-docker-compose up -d --build
+# 构建镜像
+cd frontend
+docker build -t charmview .
 
-# 查看日志
-docker-compose logs -f frontend
-
-# 停止服务
-docker-compose down
+# 运行容器（需挂载 SSL 证书目录，否则 nginx 启动失败）
+docker run -d \
+  --name charmview \
+  -p 80:80 \
+  -p 443:443 \
+  -v /etc/letsencrypt:/etc/letsencrypt:ro \
+  charmview
 ```
-
-### 部署配置
-
-- **内存限制**: 512MB 上限，256MB 预留
-- **CPU限制**: 0.5核上限，0.25核预留
-- **健康检查**: 每30秒检查一次，3次失败标记不健康
-- **端口映射**: 80:80
 
 访问地址: http://localhost/charmview/
 
@@ -90,6 +101,11 @@ frontend/
 5. **健康检查**: 及时发现容器异常
 
 ## 更新日志
+
+### 2026-08-29
+- 移除 docker-compose.yml，改用 GitHub Actions 自动部署到 GitHub Pages
+- 路由由 BrowserRouter 改为 HashRouter，适配静态托管
+- 添加 package-lock.json 锁定依赖版本
 
 ### 2026-04-12
 - 修复视频API参数问题（添加"系列"后缀）

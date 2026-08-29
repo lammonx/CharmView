@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import Gallery from './pages/Gallery';
@@ -9,12 +9,12 @@ import './index.css';
 
 function App() {
   return (
-    <BrowserRouter basename="/charmview">
+    <HashRouter>
       <Routes>
         <Route path="/" element={<MainLayout><Home /></MainLayout>} />
         <Route path="/gallery" element={<MainLayout><Gallery /></MainLayout>} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
